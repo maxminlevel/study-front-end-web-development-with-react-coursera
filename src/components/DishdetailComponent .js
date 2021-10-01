@@ -1,9 +1,23 @@
 import { Component } from "react";
-import {Card as div} from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class DishDetail extends Component{
-    constructor(props){
-        super(props);
+
+    renderDish(dish) {
+        if (dish !== null)
+            return(
+                <Card>
+                    <CardImg top src={dish.image} alt={dish.name} />
+                    <CardBody>
+                      <CardTitle>{dish.name}</CardTitle>
+                      <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            );
+        else
+            return(
+                <div></div>
+            );
     }
 
     renderComment(comments){
@@ -45,10 +59,18 @@ class DishDetail extends Component{
             )
         }else{
             //console.log('Dish',dish)
+            const dishDetail = this.renderDish(dish)
             const dishComment = this.renderComment(dish.comments);
             return(
-                <div>
-                    {dishComment}
+                <div className="container">
+                    <div className='row m-1'>
+                        <div className="col-12 col-md-5">
+                            {dishDetail}
+                        </div>
+                        <div className="col-12 col-md-7">
+                            {dishComment}
+                        </div>
+                    </div>
                 </div>
             )
         }
